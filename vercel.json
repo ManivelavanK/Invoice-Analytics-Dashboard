@@ -1,5 +1,0 @@
-{
-  "buildCommand": "npm install --silent --legacy-peer-deps && npm run build",
-  "outputDirectory": ".next",
-  "installCommand": "npm install --silent --legacy-peer-deps"
-}
