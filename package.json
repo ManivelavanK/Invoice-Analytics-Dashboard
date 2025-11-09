@@ -1,0 +1,20 @@
+{
+  "name": "invoice-analytics-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "services/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean",
+    "setup": "npm install && cd apps/api && npm install && cd ../web && npm install && cd ../../services/vanna && pip install -r requirements.txt",
+    "db:setup": "cd apps/api && npx prisma generate && npx prisma db push && npm run db:seed"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.12"
+  },
+  "packageManager": "npm@9.0.0"
+}

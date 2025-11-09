@@ -1,0 +1,16 @@
+Vanna AI Service Status: READY
+
+Server running on: http://localhost:8000
+Groq API: Connected
+Database: PostgreSQL connection established
+
+Available endpoints:
+- POST /generate-sql
+- GET /health
+
+AI Features:
+- Natural language to SQL conversion
+- Database schema awareness
+- Query execution and results
+
+Ready for AI-powered queries!
