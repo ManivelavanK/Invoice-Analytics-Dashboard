@@ -22,13 +22,17 @@ export default function ChatPage() {
 
     setLoading(true)
     try {
-      const res = await fetch('http://localhost:3001/chat-with-data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question })
+      // Mock AI response for demo
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      setResponse({
+        sql: `SELECT v.name, SUM(i.totalAmount) as total\nFROM vendors v\nJOIN invoices i ON v.id = i.vendorId\nGROUP BY v.name\nORDER BY total DESC\nLIMIT 5;`,
+        results: [
+          { name: 'Marketing Agency', total: 8500 },
+          { name: 'Tech Solutions Inc', total: 8200 },
+          { name: 'Office Supplies Co', total: 1200 }
+        ],
+        columns: ['name', 'total']
       })
-      const data = await res.json()
-      setResponse(data)
     } catch (error) {
       console.error('Error:', error)
     } finally {

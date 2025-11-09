@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { formatCurrency } from '@/lib/utils'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts'
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+
 interface Stats {
   totalSpendYTD: number
   totalInvoices: number
@@ -31,33 +33,25 @@ export default function Dashboard() {
   const [trends, setTrends] = useState([])
 
   useEffect(() => {
-    // Fetch stats
-    fetch('http://localhost:3001/stats')
-      .then(res => res.json())
-      .then(setStats)
-
-    // Fetch invoices
-    fetch('http://localhost:3001/invoices?limit=10')
-      .then(res => res.json())
-      .then(data => setInvoices(data.invoices))
-
-    // Fetch top vendors
-    fetch('http://localhost:3001/vendors/top10')
-      .then(res => res.json())
-      .then(setTopVendors)
-
-    // Fetch category spend
-    fetch('http://localhost:3001/category-spend')
-      .then(res => res.json())
-      .then(setCategorySpend)
-
-    // Fetch trends
-    fetch('http://localhost:3001/invoice-trends')
-      .then(res => res.json())
-      .then(setTrends)
+    // Use mock data for demo
+    setStats({
+      totalSpendYTD: 18650,
+      totalInvoices: 5,
+      documentsUploaded: 5,
+      avgInvoiceValue: 3730
+    })
+    
+    setInvoices([
+      { id: '1', invoiceNumber: 'INV-2024-001', vendor: { name: 'Tech Solutions Inc' }, totalAmount: 5000, status: 'PAID', invoiceDate: '2024-01-15' },
+      { id: '2', invoiceNumber: 'INV-2024-002', vendor: { name: 'Office Supplies Co' }, totalAmount: 1200, status: 'PENDING', invoiceDate: '2024-01-20' }
+    ])
+    
+    setTopVendors([{ name: 'Marketing Agency', total: 8500 }, { name: 'Tech Solutions Inc', total: 8200 }])
+    setCategorySpend([{ category: 'Technology', total: 8200 }, { category: 'Marketing', total: 8500 }])
+    setTrends([{ month: 'Jan', total: 6200 }, { month: 'Feb', total: 9250 }])
   }, [])
 
-  if (!stats) return <div>Loading...</div>
+  if (!stats) return <div className="flex items-center justify-center min-h-screen"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div></div>
 
   return (
     <div className="p-6 space-y-6">
