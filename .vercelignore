@@ -1,5 +1,0 @@
-apps/api/
-services/
-node_modules/
-*.log
-.env
